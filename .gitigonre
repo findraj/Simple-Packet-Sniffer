@@ -1,0 +1,13 @@
+# css generated
+/bin
+/obj
+/.idea
+
+# executable file
+ipk24chat-client
+
+# dev envs
+dev-envs
+
+# zip
+xfindr01.zip
