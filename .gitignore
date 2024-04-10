@@ -4,10 +4,11 @@
 /.idea
 
 # executable file
-ipk24chat-client
+ipk-sniffer
 
 # dev envs
 dev-envs
 
 # zip
 xfindr01.zip
+
