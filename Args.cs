@@ -32,15 +32,8 @@ public class Args
         PortSource = null;
         PortDestination = null;
         
-        if (args.Length == 0)
-        {
-            Stderr.Write("No arguments");
-        }
-
         // ./ipk-sniffer [-i interface | --interface interface] {-p|--port-source|--port-destination port [--tcp|-t] [--udp|-u]} [--arp] [--icmp4] [--icmp6] [--igmp] [--mld] {-n num}
-        else
-        {
-            for (int index = 0; index < args.Length; index++)
+        for (int index = 0; index < args.Length; index++)
             {
                 string current = args[index];
                 if (current == "--port-destinations" || current == "--port-source" || current == "-p")
@@ -116,6 +109,5 @@ public class Args
                     Stderr.Write("Wrong argument");
                 }
             }
-        }
     }
 }
