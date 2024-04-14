@@ -1,13 +1,8 @@
-# css generated
-/bin
-/obj
-/.idea
-
 # executable file
 ipk-sniffer
 
-# dev envs
-dev-envs
+# .vscode
+.vscode/
 
 # zip
 xfindr01.zip

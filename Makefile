@@ -1,16 +1,19 @@
-all : clean publish
+CXX = g++
+CFLAGS = -std=c++20 -Wall -Wextra -pedantic -g
+OBJ = main.o
+
+all : clean program
 
 clean:
-	dotnet clean
-	# remove generated files
 	rm -f ipk-sniffer
-	rm -rf ./bin
-	rm -rf ./obj
-	rm -rf ./.idea
 	rm -f xfindr01.zip
 
-publish:
-	dotnet publish -r osx-arm64 -p:PublishSingleFile=true -p:DebugType=None --self-contained true -o .
+program: main.o
+	$(CXX) $(CFLAGS) -o ipk-sniffer main.o -lpcap
+	rm -f main.o
+
+main.o: main.cpp
+	$(CXX) $(CFLAGS) -c main.cpp
 
 pack: clean
 	zip -r xfindr01.zip .
