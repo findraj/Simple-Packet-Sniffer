@@ -10,11 +10,11 @@ Args::Args()
     ndp = false;
     igmp = false;
     mld = false;
-    numberOfPackets = 0;
+    numberOfPackets = 1;
     interface = "";
-    port = 0;
-    portSource = 0;
-    portDestination = 0;
+    port = -1;
+    portSource = -1;
+    portDestination = -1;
 }
 
 void Args::parse(int argc, char* argv[])
@@ -24,6 +24,10 @@ void Args::parse(int argc, char* argv[])
             string arg = argv[i];
             if (arg == "--port-destination")
             {
+                if (port != -1)
+                {
+                    handleError("Error: port destination is already set");
+                }
                 if (i + 1 < argc)
                 {
                     portDestination = atoi(argv[i + 1]);
@@ -36,6 +40,10 @@ void Args::parse(int argc, char* argv[])
             }
             else if (arg == "--port-source")
             {
+                if (port != -1)
+                {
+                    handleError("Error: port source is already set");
+                }
                 if (i + 1 < argc)
                 {
                     portSource = atoi(argv[i + 1]);
@@ -48,6 +56,10 @@ void Args::parse(int argc, char* argv[])
             }
             else if (arg == "--port" || arg == "-p")
             {
+                if (portSource != -1 || portDestination != -1)
+                {
+                    handleError("Error: ports are already set");
+                }
                 if (i + 1 < argc)
                 {
                     port = atoi(argv[i + 1]);

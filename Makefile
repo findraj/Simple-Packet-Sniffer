@@ -8,8 +8,8 @@ clean:
 	rm -f ipk-sniffer
 	rm -f xfindr01.zip
 
-program: main.o Args.o utils.o
-	$(CXX) $(CFLAGS) -o ipk-sniffer main.o Args.o utils.o -lpcap
+program: main.o Args.o utils.o Filter.o
+	$(CXX) $(CFLAGS) -o ipk-sniffer main.o Args.o utils.o Filter.o -lpcap
 	rm -f main.o
 	rm -f Args.o
 	rm -f utils.o
@@ -22,6 +22,9 @@ Args.o: Args.cpp
 
 utils.o: utils.cpp
 	$(CXX) $(CFLAGS) -c utils.cpp
+
+Filter.o: Filter.cpp
+	$(CXX) $(CFLAGS) -c Filter.cpp
 
 pack: clean
 	zip -r xfindr01.zip .

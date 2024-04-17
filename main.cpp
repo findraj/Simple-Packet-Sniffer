@@ -1,4 +1,4 @@
-#include "Args.h"
+#include "Filter.h"
 
 using namespace std;
 
@@ -42,6 +42,20 @@ int main(int argc, char* argv[]) {
     if (pcap_datalink(handle) != DLT_EN10MB)
     {
         handleError("Error: device is not Ethernet: " + string(errbuf));
+    }
+
+    Filter filter(args);
+
+    struct bpf_program fp;
+
+    if (pcap_compile(handle, &fp, filter.content.c_str(), 0, mask) == PCAP_ERROR)
+    {
+        handleError("Error: cannot compile filter: " + string(pcap_geterr(handle)));
+    }
+
+    if (pcap_setfilter(handle, &fp) == PCAP_ERROR)
+    {
+        handleError("Error: cannot set filter: " + string(pcap_geterr(handle)));
     }
 
     return 0;
