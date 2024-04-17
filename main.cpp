@@ -3,6 +3,13 @@
 
 using namespace std;
 
+void packetHandler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u_char* packet)
+{
+    Packet p;
+    p.handler(userData, pkthdr, packet);
+    p.print();
+}
+
 int main(int argc, char* argv[]) {
     char errbuf[PCAP_ERRBUF_SIZE];
     Args args;
@@ -59,9 +66,7 @@ int main(int argc, char* argv[]) {
         handleError("Error: cannot set filter: " + string(pcap_geterr(handle)));
     }
 
-    Packet packet;
-
-    if (pcap_loop(handle, args.numberOfPackets, packet.handler, NULL) == PCAP_ERROR)
+    if (pcap_loop(handle, args.numberOfPackets, packetHandler, NULL) == PCAP_ERROR)
     {
         handleError("Error: cannot capture packets: " + string(pcap_geterr(handle)));
     }

@@ -9,10 +9,16 @@
 class Packet
 {
     public:
-        ether_header etherHeader;
-        ip Ip;
-        tcphdr tcpHeader;
-        udphdr udpHeader;
+        string timestamp;
+        string srcMAC;
+        string dstMAC;
+        string frameLength;
+        string srcIP;
+        string dstIP;
+        string srcPort;
+        string dstPort;
+        string byteOffset;
         Packet();
-        static void handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u_char* packet);
+        void handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u_char* packet);
+        void print();
 };
