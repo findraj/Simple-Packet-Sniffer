@@ -1,4 +1,5 @@
-#include "Filter.h"
+#include "filter.h"
+#include "Packet.h"
 
 using namespace std;
 
@@ -44,11 +45,11 @@ int main(int argc, char* argv[]) {
         handleError("Error: device is not Ethernet: " + string(errbuf));
     }
 
-    Filter filter(args);
+    string filter = createFilter(args);
 
     struct bpf_program fp;
 
-    if (pcap_compile(handle, &fp, filter.content.c_str(), 0, mask) == PCAP_ERROR)
+    if (pcap_compile(handle, &fp, filter.c_str(), 0, mask) == PCAP_ERROR)
     {
         handleError("Error: cannot compile filter: " + string(pcap_geterr(handle)));
     }
@@ -56,6 +57,13 @@ int main(int argc, char* argv[]) {
     if (pcap_setfilter(handle, &fp) == PCAP_ERROR)
     {
         handleError("Error: cannot set filter: " + string(pcap_geterr(handle)));
+    }
+
+    Packet packet;
+
+    if (pcap_loop(handle, args.numberOfPackets, packet.handler, NULL) == PCAP_ERROR)
+    {
+        handleError("Error: cannot capture packets: " + string(pcap_geterr(handle)));
     }
 
     return 0;

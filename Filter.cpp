@@ -1,6 +1,8 @@
-#include "Filter.h"
+#include "filter.h"
 
-Filter::Filter(Args args) {
+string createFilter(Args args)
+{
+    string content = "";
     if (args.tcp)
     {
         content += "tcp and ";
@@ -83,4 +85,6 @@ Filter::Filter(Args args) {
         }
         content += "(icmp6 and icmp6[0] > 129 and icmp6[1] < 133)";
     }
+
+    return content;
 }
