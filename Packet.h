@@ -5,6 +5,7 @@
 #include "utils.h"
 #include <chrono>
 #include <iomanip>
+#include <vector>
 
 class Packet
 {
@@ -17,7 +18,7 @@ class Packet
         string dstIP;
         string srcPort;
         string dstPort;
-        string byteOffset;
+        vector<string> byteOffset;
         Packet();
         void handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u_char* packet);
         void print();
