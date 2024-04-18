@@ -111,6 +111,61 @@ void Packet::handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u
         srcIP = string(arpSrcIP);
         dstIP = string(arpDstIP);
     }
+
+    int offset = 0;
+    const u_char *data;
+    while (offset < (int)pkthdr->len)
+    {
+        char tmp[44];
+        string line = "";
+        data = packet + offset;
+
+        sprintf(tmp, "0x%04x:", offset);
+        line += string(tmp);
+
+        for (int i = 0; i < widthOfData; i++)
+        {
+            if (i + offset < (int)pkthdr->len)
+            {
+                sprintf(tmp, " %02x", data[i]);
+                line += string(tmp);
+            }
+            else // there are less than 16 bytes left
+            {
+                line += "   "; // spacer to align the last line
+            }
+        }
+
+        line += " ";
+
+        for (int i = 0; i < widthOfData; i++)
+        {
+            if (i + offset < (int)pkthdr->len)
+            {
+                if (i % 8 == 0 && i / 8 == 1)
+                {
+                    line += " ";
+                }
+
+                if (isprint(data[i]))
+                {
+                    sprintf(tmp, "%c", data[i]);
+                    line += string(tmp);
+                }
+                else
+                {
+                    line += ".";
+                }
+            }
+            else
+            {
+                line += " ";
+            }
+        }
+
+        byteOffset.push_back(line);
+        offset += widthOfData;
+    }
 }
 
 void Packet::print()
@@ -124,7 +179,7 @@ void Packet::print()
     cout << "src port: " << srcPort << endl;
     cout << "dst port: " << dstPort << endl;
     
-    for (int i = 0; i < byteOffset.size(); i++)
+    for (int i = 0; i < (int)byteOffset.size(); i++)
     {
         cout << byteOffset[i] << endl;
     }

@@ -7,6 +7,8 @@
 #include <iomanip>
 #include <vector>
 
+const int widthOfData = 16;
+
 class Packet
 {
     public:
