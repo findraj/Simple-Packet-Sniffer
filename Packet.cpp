@@ -23,7 +23,7 @@ void Packet::handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u
     strftime(timestr, sizeof(timestr), "%FT%T", ltime);
     strftime(zone, sizeof(zone), "%z", ltime);
     string zoneStr(zone);
-    sprintf(tmp, "%s.%03ld%.3s:%.2s", timestr, pkthdr->ts.tv_usec / 1000, zone, zone + 3);
+    sprintf(tmp, "%s.%.3ld%.3s:%.2s", timestr, pkthdr->ts.tv_usec / 1000, zone, zone + 3);
     timestamp = string(tmp);
 
     for (int i = 0; i < 6; i++)
