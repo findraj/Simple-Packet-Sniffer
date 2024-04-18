@@ -15,7 +15,7 @@ Packet::Packet()
 
 void Packet::handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u_char* packet)
 {
-    char tmp[30];
+    char tmp[35];
 
     struct tm *ltime = localtime(&pkthdr->ts.tv_sec);
     char timestr[20];
