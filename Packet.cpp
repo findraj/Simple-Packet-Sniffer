@@ -22,12 +22,12 @@ void Packet::handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u
     char zone[10];
     strftime(timestr, sizeof(timestr), "%FT%T", ltime);
     strftime(zone, sizeof(zone), "%z", ltime);
-    sprintf(tmp, "%s.%.3d%.3s:%.2s", timestr, (int)pkthdr->ts.tv_usec / 1000, zone, zone + 3);
+    snprintf(tmp, 35, "%s.%.3d%.3s:%.2s", timestr, (int)pkthdr->ts.tv_usec / 1000, zone, zone + 3);
     timestamp = string(tmp);
 
     for (int i = 0; i < 6; i++)
     {
-        sprintf(tmp, "%02x", packet[i]);
+        snprintf(tmp, 35, "%02x", packet[i]);
         srcMAC += string(tmp);
         if (i < 5)
         {
@@ -37,7 +37,7 @@ void Packet::handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u
 
     for (int i = 6; i < 12; i++)
     {
-        sprintf(tmp, "%02x", packet[i]);
+        snprintf(tmp, 35, "%02x", packet[i]);
         dstMAC += string(tmp);
         if (i < 11)
         {
@@ -45,7 +45,7 @@ void Packet::handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u
         }
     }
 
-    sprintf(tmp, "%d", pkthdr->len / 8);
+    snprintf(tmp, 35, "%d", pkthdr->len / 8);
     frameLength = string(tmp);
 
     const struct ether_header *eth_header = (const struct ether_header *)packet;
@@ -64,16 +64,16 @@ void Packet::handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u
 
         if (ip_header->ip_p == IPPROTO_TCP)
         {
-            sprintf(tmp, "%d", ntohs(tcp_header->th_sport));
+            snprintf(tmp, 35, "%d", ntohs(tcp_header->th_sport));
             srcPort = string(tmp);
-            sprintf(tmp, "%d", ntohs(tcp_header->th_dport));
+            snprintf(tmp, 35, "%d", ntohs(tcp_header->th_dport));
             dstPort = string(tmp);
         }
         else if (ip_header->ip_p == IPPROTO_UDP)
         {
-            sprintf(tmp, "%d", ntohs(udp_header->uh_sport));
+            snprintf(tmp, 35, "%d", ntohs(udp_header->uh_sport));
             srcPort = string(tmp);
-            sprintf(tmp, "%d", ntohs(udp_header->uh_dport));
+            snprintf(tmp, 35, "%d", ntohs(udp_header->uh_dport));
             dstPort = string(tmp);
         }
     }
@@ -88,16 +88,16 @@ void Packet::handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u
 
         if (ip_header->ip_p == IPPROTO_TCP)
         {
-            sprintf(tmp, "%d", ntohs(tcp_header->th_sport));
+            snprintf(tmp, 35, "%d", ntohs(tcp_header->th_sport));
             srcPort = string(tmp);
-            sprintf(tmp, "%d", ntohs(tcp_header->th_dport));
+            snprintf(tmp, 35, "%d", ntohs(tcp_header->th_dport));
             dstPort = string(tmp);
         }
         else if (ip_header->ip_p == IPPROTO_UDP)
         {
-            sprintf(tmp, "%d", ntohs(udp_header->uh_sport));
+            snprintf(tmp, 35, "%d", ntohs(udp_header->uh_sport));
             srcPort = string(tmp);
-            sprintf(tmp, "%d", ntohs(udp_header->uh_dport));
+            snprintf(tmp, 35, "%d", ntohs(udp_header->uh_dport));
             dstPort = string(tmp);
         }
     }
@@ -119,14 +119,14 @@ void Packet::handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u
         string line = "";
         data = packet + offset;
 
-        sprintf(tmp, "0x%04x:", offset);
+        snprintf(tmp, 35, "0x%04x:", offset);
         line += string(tmp);
 
         for (int i = 0; i < widthOfData; i++)
         {
             if (i + offset < (int)pkthdr->len)
             {
-                sprintf(tmp, " %02x", data[i]);
+                snprintf(tmp, 35, " %02x", data[i]);
                 line += string(tmp);
             }
             else // there are less than 16 bytes left
@@ -148,7 +148,7 @@ void Packet::handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u
 
                 if (isprint(data[i]))
                 {
-                    sprintf(tmp, "%c", data[i]);
+                    snprintf(tmp, 35, "%c", data[i]);
                     line += string(tmp);
                 }
                 else
