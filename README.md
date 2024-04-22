@@ -20,7 +20,8 @@ The `Args` class is responsible for parsing the input arguments and storing them
 
 ### Packet
 
-The `Packet` class is responsible for parsing the raw packet data and storing it in the class variables. There is also function `print` which prints the packet in the required format.
+The `Packet` class is responsible for parsing the raw packet data and storing it in the class variables.  
+There is also function `print` which prints the packet in the required format.
 
 ### Main
 
@@ -114,9 +115,12 @@ dst port: 1900
 
 ## Testing
 
-Testing was done on macOS Sonoma and also in docker container running `debina:11` image. Locally I don't have root access so I had to use `sudo` to run the program.  
-The program was tested with various combinations of arguments and on different network interfaces.
+**Testing environment:** macOS Sonoma; `debina:11` docker image  
 
+Locally I don't have root access so I had to use `sudo` to run the program.  
+The program was tested with various combinations of arguments and on different network interfaces. There were a lot of network traffic, so didn't need to generate any most of the time. When it was necessary, I used `ping`.
+
+**Inputs:**
 ```bash
 $ sudo ./ipk-sniffer -i en0
 $ sudo ./ipk-sniffer -i en0 -u --port-destination 1900
@@ -125,10 +129,10 @@ $ sudo ./ipk-sniffer -i en0 -arp
 .
 .
 ```
-![Wireshark](wireshark.png)
-![terminal](terminal.png)
 
-Then I manually checked the output of the program in comparison with [Wireshark](#bibliography).
+**Expected outputs:** catched in the [Wireshark](#bibliography)  
+**Real outputs:** output of the program
+**Validation:** manually checked the output of the program in comparison with the [Wireshark](#bibliography) results
 
 ## Bibliography
 
