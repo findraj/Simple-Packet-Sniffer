@@ -45,7 +45,7 @@ void Packet::handler(u_char *userData, const struct pcap_pkthdr* pkthdr, const u
         }
     }
 
-    snprintf(tmp, 35, "%d", pkthdr->len / 8);
+    snprintf(tmp, 35, "%d", pkthdr->len);
     frameLength = string(tmp);
 
     const struct ether_header *eth_header = (const struct ether_header *)packet;

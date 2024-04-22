@@ -5,16 +5,21 @@ string createFilter(Args args)
     string content = "";
     if (args.tcp)
     {
-        content += "tcp and ";
+        content += "tcp";
     }
 
     if (args.udp)
     {
         if (args.tcp)
         {
-            content += "or ";
+            content += " or ";
         }
-        content += "udp and ";
+        content += "udp";
+    }
+
+    if ((args.port != -1 || args.portSource != -1 || args.portDestination != -1) && !content.empty())
+    {
+        content += " and ";
     }
 
     if (args.port != -1)
