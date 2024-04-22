@@ -1,5 +1,12 @@
 #include "filter.h"
 
+/**
+ * @brief Create a filter based on the arguments
+ * 
+ * @param args object of class Args
+ * @return string filter
+ 
+*/
 string createFilter(Args args)
 {
     string content = "";
@@ -17,6 +24,7 @@ string createFilter(Args args)
         content += "udp";
     }
 
+    // add conjunction if there is a port
     if ((args.port != -1 || args.portSource != -1 || args.portDestination != -1) && !content.empty())
     {
         content += " and ";

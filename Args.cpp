@@ -1,5 +1,7 @@
 #include "Args.h"
-
+/**
+ * @brief Constructor of object of class Args
+*/
 Args::Args()
 {
     tcp = false;
@@ -17,14 +19,20 @@ Args::Args()
     portDestination = -1;
 }
 
+/**
+ * @brief Parse the arguments from the command line\
+ * 
+ * @param argc number of arguments
+ * @param argv array of arguments
+*/
 void Args::parse(int argc, char* argv[])
     {
-        for (int i = 1; i < argc; i++)
+        for (int i = 1; i < argc; i++) // start from 1 to skip the program name
         {
             string arg = argv[i];
             if (arg == "--port-destination")
             {
-                if (port != -1)
+                if (port != -1) // if port is set, then it is not possible to set port destination
                 {
                     handleError("Error: port destination is already set");
                 }
@@ -40,7 +48,7 @@ void Args::parse(int argc, char* argv[])
             }
             else if (arg == "--port-source")
             {
-                if (port != -1)
+                if (port != -1) // if port is set, then it is not possible to set port source
                 {
                     handleError("Error: port source is already set");
                 }
@@ -56,7 +64,7 @@ void Args::parse(int argc, char* argv[])
             }
             else if (arg == "--port" || arg == "-p")
             {
-                if (portSource != -1 || portDestination != -1)
+                if (portSource != -1 || portDestination != -1) // if port source or port destination is set, then it is not possible to set port
                 {
                     handleError("Error: ports are already set");
                 }

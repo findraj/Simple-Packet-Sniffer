@@ -12,6 +12,8 @@ Utilities such as `printHelp` and `handleError` are in the `utils` file.
 
 ## Implementation
 
+For the handling of the network packets, I used the [`pcap`](#bibliography) library. Important is also knowledge of the structure of the packets. I used materials from the lectures and also from the [Wikipedia](#bibliography) program.
+
 ### Args
 
 The `Args` class is responsible for parsing the input arguments and storing them in the class variables.
@@ -129,5 +131,8 @@ $ sudo ./ipk-sniffer -i en0 -arp
 Then I manually checked the output of the program in comparison with [Wireshark](#bibliography).
 
 ## Bibliography
-1. RFC 3339 - https://www.rfc-editor.org/rfc/rfc3339
-2. Wireshark - https://www.wireshark.org/
+
+1. Library `pcap` - https://www.tcpdump.org/
+2. Wikipedia - https://en.wikipedia.org/wiki/Ethernet_frame
+3. RFC 3339 - https://www.rfc-editor.org/rfc/rfc3339
+4. Wireshark - https://www.wireshark.org/
