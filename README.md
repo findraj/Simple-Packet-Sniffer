@@ -16,20 +16,22 @@ For the handling of the network packets, I used the [`pcap`](#bibliography) libr
 
 ### Args
 
-The `Args` class is responsible for parsing the input arguments and storing them in the class variables.
+The `Args` class is responsible for parsing the input arguments and storing them in the class variables. It contains all possible arguments for the program.
 
 ### Packet
 
-The `Packet` class is responsible for parsing the raw packet data and storing it in the class variables.  
+The `Packet` class is responsible for parsing the raw packet data and storing it in the class variables. I used the `pcap` library to parse the headers of the packets. And then I used the knowledge of the structure of the packets to parse the data and store it in the class variables in the required format.  
 There is also function `print` which prints the packet in the required format.
 
 ### Main
 
-The `main` file contains the main part of the program. It uses other classes and functions to parse input arguments, open the socket, and start sniffing packets.
+The `main` file contains the main part of the program. It uses other classes and functions to parse input arguments, open the socket, and start sniffing packets. For handling the packets, it uses the `libpcap` library where it sets the filter based on the input arguments and then reads the packets. For each packet, it creates an instance of the `Packet` class, parses the packet, and prints it in the required format.
 
 ### Utils
 
 The `utils` file contains utility functions such as `printHelp` and `handleError`.
+`printHelp` prints the help message with the description of the program and the usage to the standard output.  
+`handleError` prints the error message to the standard error output and exits the program with the error code.
 
 ## Compilation
 
