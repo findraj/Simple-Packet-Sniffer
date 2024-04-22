@@ -175,8 +175,14 @@ void Packet::print()
     cout << "frame length: " << frameLength << " bytes" << endl;
     cout << "src IP: " << srcIP << endl;
     cout << "dst IP: " << dstIP << endl;
-    cout << "src port: " << srcPort << endl;
-    cout << "dst port: " << dstPort << endl;
+    if (srcPort != "")
+    {
+        cout << "src port: " << srcPort << endl;
+    }
+    if (dstPort != "")
+    {
+        cout << "dst port: " << dstPort << endl;
+    }
     
     for (int i = 0; i < (int)byteOffset.size(); i++)
     {
